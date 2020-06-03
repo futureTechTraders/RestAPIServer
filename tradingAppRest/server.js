@@ -25,7 +25,7 @@ app.get('/name', function(req, res) {
     
     // E.g : http://localhost:3000/name?firstname=Levente
     var process = spawn('python',['apiTest.py', 
-                            req.query.firstname]);
+                            req.query.lastname]);
   
     // Takes stdout data from script which executed 
     // with arguments and send this data to res object
