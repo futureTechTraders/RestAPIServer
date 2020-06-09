@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "localtunnel": "^2.0.0",
     "query": "^0.2.0",
     "query-string": "^6.12.1",
     "response": "^0.18.0"
