@@ -12,6 +12,7 @@ tickerSymbol = yf.Ticker('AAPL')#Identifies which stock to look at --> in this c
 tickerData = tickerSymbol.history(period = '1y', interval = '1d', start = '2020-3-1', end = '2020-5-24')#Paramters for data of stock(constructs data frame)
 
 timeframe = int(sys.argv[1])
+indicator = str(sys.argv[2])
 
 def ExponentialMovingAverage(timeframe):
     ema = tickerData['Close'].ewm(span = timeframe, adjust = False).mean()
@@ -22,6 +23,11 @@ def SimpleMovingAverage(timeframe):
     tickerData['Close'].plot()
     print(tickerData['Close'].rolling(window = timeframe).mean())
     #plt.show()
+    
+if indicator == "SMA":
+    
+    SimpleMovingAverage(timeframe)
 
-ExponentialMovingAverage(timeframe) #Test for EMA Method
-SimpleMovingAverage(timeframe) #Test for SMA Method
+else:
+    
+    ExponentialMovingAverage(timeframe)
