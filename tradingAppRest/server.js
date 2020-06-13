@@ -23,18 +23,37 @@ app.get('/name', function(req, res) {
     // 2. list containing Path of the script 
     //    and arguments for the script  
     
-    // E.g : http://localhost:3000/name?firstname=Levente
-    var process = spawn('py',['MovingAverages.py', 
-                            req.query.days, req.query.indicator]);
-  
-    // Takes stdout data from script which executed 
-    // with arguments and send this data to res object
-    var output = '';
-    process.stdout.on('data', function(data) {
+    if(req.query.python_script == "stock_bot") {
         
-        console.log("Sending Info")
-        res.end(data.toString('utf8'));
-    });
+        // E.g : http://localhost:3000/name?firstname=Levente
+        var process = spawn('py',['StockBot.py', 
+                            req.query.ticker, req.query.period, req.query.interval, req.query.start, req.query.end, req.query.days]);
+  
+        // Takes stdout data from script which executed 
+        // with arguments and send this data to res object
+        var output = '';
+        process.stdout.on('data', function(data) {
+        
+            console.log("Sending Info")
+            res.end(data.toString('utf8'));
+        });
     
-    console.log(output);
+        console.log(output);
+    } else {
+        
+        // E.g : http://localhost:3000/name?firstname=Levente
+        var process = spawn('py',['MovingAverages.py', 
+                            req.query.days]);
+  
+        // Takes stdout data from script which executed 
+        // with arguments and send this data to res object
+        var output = '';
+        process.stdout.on('data', function(data) {
+        
+            console.log("Sending Info")
+            res.end(data.toString('utf8'));
+        });
+    
+        console.log(output);
+    }
 }); 
