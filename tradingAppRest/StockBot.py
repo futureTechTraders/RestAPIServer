@@ -43,6 +43,7 @@ class MovingAverages():
     
     def ExponentialMovingAverage(self):
         tickerData['EMA'] = tickerData['Close'].ewm(span = self.timeframe, adjust = False).mean()
+        print(tickerData['EMA'])
         return tickerData['EMA']
         #ema.plot(grid = True)
         #print(ema)
@@ -50,6 +51,7 @@ class MovingAverages():
     def SimpleMovingAverage(self):
         #tickerData['Close'].plot()
         tickerData['SMA'] = tickerData['Close'].rolling(window = self.timeframe).mean()
+        print(tickerData['SMA'])
         return tickerData['SMA']
         #plt.show()
     #ExponentialMovingAverage(timeframe) #Test for EMA Method
@@ -89,6 +91,7 @@ class executeStockBot(macd):
         macd.__init__(self,tickerDataNew)
    
     def calculateEntryPoint(self):
+        
         userStock = MovingAverages(self.timeframe)
         macdNew = macd(self.tickerDataNew)
         df = macdNew.calculateMACD()
@@ -104,10 +107,16 @@ class executeStockBot(macd):
 
         if((lastClosePrice > smaLastPrice) and ((lastMACDPrice > lastSignalPrice) or (lastMACDPrice > 0))):
             print('Enter a long position at ' + str(lastClosePrice))
+            print("MACD", df['MACD'])
+            print("SIGNAL", df['signal'])
         elif ((lastClosePrice  < smaLastPrice) and ((lastMACDPrice < lastSignalPrice) or (lastMACDPrice < 0))):
             print('Enter a short position at ' + str(lastClosePrice))
+            print("MACD", df['MACD'])
+            print("SIGNAL", df['signal'])
         else:
             print('No position should be taken, as there is no MACD & SMA agreement/consensus')
+            print("MACD", df['MACD'])
+            print("SIGNAL", df['signal'])
 
 
 entryPoints = executeStockBot(timeframe,tickerData)

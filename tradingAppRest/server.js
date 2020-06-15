@@ -23,7 +23,10 @@ app.get('/name', function(req, res) {
     // 2. list containing Path of the script 
     //    and arguments for the script  
     
-    if(req.query.python_script == "stock_bot") {
+    if(req.query.indicator == "stock_bot") {
+        
+        console.log("entered stock bot");
+        console.log(req.query.ticker);
         
         // E.g : http://localhost:3000/name?firstname=Levente
         var process = spawn('py',['StockBot.py', 
@@ -40,6 +43,8 @@ app.get('/name', function(req, res) {
     
         console.log(output);
     } else {
+        
+        console.log("entered ema/sma");
         
         // E.g : http://localhost:3000/name?firstname=Levente
         var process = spawn('py',['MovingAverages.py', 
