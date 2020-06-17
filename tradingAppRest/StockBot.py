@@ -8,6 +8,8 @@ import sys
 global tickerData
 global timeFrame
 
+pd.set_option('display.max_rows', None)
+
 class TickerDataFrame:
     def __init__(self,tSymbol,period, interval, start, end):
         self.tickerSymbol = tSymbol
@@ -28,6 +30,7 @@ class TickerDataFrame:
 #start = input('please enter start date in year/month/day(EX: 2019-3-1): ')
 #end = input('please enter end date in year/month/day(EX: 2020-5-1 ): ')
 #timeframe = int(input("How many days is your moving average: "))
+
 userTicker = str(sys.argv[1])
 period = str(sys.argv[2])
 interval = str(sys.argv[3])
@@ -41,9 +44,13 @@ class MovingAverages():
     def __init__(self,timeframe):
         self.timeframe = timeframe
     
-    def ExponentialMovingAverage(self):
+    def ExponentialMovingAverage(self, isPrinted):
         tickerData['EMA'] = tickerData['Close'].ewm(span = self.timeframe, adjust = False).mean()
-        print(tickerData['EMA'])
+        
+        if isPrinted:
+            
+            print(tickerData['EMA'])
+        
         return tickerData['EMA']
         #ema.plot(grid = True)
         #print(ema)
@@ -66,11 +73,11 @@ class macd(MovingAverages):
         df = pd.read_csv('MACD_Manipulation.txt', index_col = 'Date', parse_dates= True)
         fastperiod = MovingAverages(12)
         slowperiod = MovingAverages(26)
-        df['12EMA'] = fastperiod.ExponentialMovingAverage() 
-        df['26EMA'] = slowperiod.ExponentialMovingAverage()
+        df['12EMA'] = fastperiod.ExponentialMovingAverage(True) 
+        df['26EMA'] = slowperiod.ExponentialMovingAverage(False)
         #create an array then convert to column in dataframe
-        df['MACD'] = fastperiod.ExponentialMovingAverage() #PlaceHolder values 
-        df['Axis'] = fastperiod.ExponentialMovingAverage() #PlaceHolder values
+        df['MACD'] = fastperiod.ExponentialMovingAverage(False) #PlaceHolder values 
+        df['Axis'] = fastperiod.ExponentialMovingAverage(False) #PlaceHolder values
         for x in range(0,((df['26EMA'].count()))):
             macdCalc = (df['12EMA'].iloc[x]) - (df['26EMA'].iloc[x])
             df['MACD'].iloc[x] = macdCalc
@@ -106,19 +113,19 @@ class executeStockBot(macd):
 
 
         if((lastClosePrice > smaLastPrice) and ((lastMACDPrice > lastSignalPrice) or (lastMACDPrice > 0))):
+            print("MACD", df['MACD'])
+            print("SIGNAL", df['signal'])
             print('Enter a long position at ' + str(lastClosePrice))
-            print("MACD", df['MACD'])
-            print("SIGNAL", df['signal'])
         elif ((lastClosePrice  < smaLastPrice) and ((lastMACDPrice < lastSignalPrice) or (lastMACDPrice < 0))):
+            print("MACD", df['MACD'])
+            print("SIGNAL", df['signal'])
             print('Enter a short position at ' + str(lastClosePrice))
-            print("MACD", df['MACD'])
-            print("SIGNAL", df['signal'])
         else:
-            print('No position should be taken, as there is no MACD & SMA agreement/consensus')
             print("MACD", df['MACD'])
             print("SIGNAL", df['signal'])
+            print('No position should be taken, as there is no MACD & SMA agreement/consensus')
 
-
+            
 entryPoints = executeStockBot(timeframe,tickerData)
 entryPoints.calculateEntryPoint()
 
