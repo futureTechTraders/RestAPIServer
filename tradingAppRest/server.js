@@ -42,13 +42,13 @@ app.get('/name', function(req, res) {
         });
     
         console.log(output);
-    } else {
+    } else if(req.query.indicator == "watchlist") {
         
-        console.log("entered ema/sma");
+        console.log("entered watchlist");
         
         // E.g : http://localhost:3000/name?firstname=Levente
-        var process = spawn('py',['MovingAverages.py', 
-                            req.query.days, req.query.indicator]);
+        var process = spawn('py',['DataScrape.py', 
+                            req.query.ticker]);
   
         // Takes stdout data from script which executed 
         // with arguments and send this data to res object
