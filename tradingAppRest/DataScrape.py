@@ -10,7 +10,7 @@ class TickerDataFrame:
         
         self.tickerSymbol = tSymbol
         
-        if int(str(time.strftime("%I:%M:%S"))[0:2]) >= 4 && <= 9:
+        if int(str(time.strftime("%I:%M:%S"))[0:2]) >= 4 and int(str(time.strftime("%I:%M:%S"))[0:2]) <= 9:
             
             self.period = '2d'
         else:
@@ -23,8 +23,9 @@ class TickerDataFrame:
     def createDataFrame(self):
         
         symbol = yf.Ticker(self.tickerSymbol)
+        #print(str(time.strftime("%I:%M:%S"))[0:2])
         
-        if int(str(time.strftime("%I:%M:%S"))[0:2]) >= 4 && <= 9:
+        if int(str(time.strftime("%I:%M:%S"))[0:2]) >= 4 and int(str(time.strftime("%I:%M:%S"))[0:2]) <= 9:
             
             tickerData = symbol.history(period = self.period)
         else:
@@ -34,8 +35,8 @@ class TickerDataFrame:
         #tickerData = symbol.history(start = self.start, end = self.end)
         return tickerData
     
-symbol = sys.argv[1]
-#symbol = input("Enter the ticker: ")
+#symbol = sys.argv[1]
+symbol = input("Enter the ticker: ")
 data = TickerDataFrame(symbol)
 dataFrame = data.createDataFrame()
 
