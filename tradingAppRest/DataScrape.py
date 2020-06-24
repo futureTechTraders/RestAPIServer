@@ -10,33 +10,31 @@ class TickerDataFrame:
         
         self.tickerSymbol = tSymbol
         
-        if int(str(time.strftime("%I:%M:%S"))[0:2]) >= 4 and int(str(time.strftime("%I:%M:%S"))[0:2]) <= 9:
+        if (str(time.strftime("%I:%M:%S%p"))[8:] == "PM" and int(str(time.strftime("%I:%M:%S"))[0:2]) >= 4) or (str(time.strftime("%I:%M:%S%p"))[8:] == "AM" and int(str(time.strftime("%I:%M:%S"))[0:2]) <= 12):
             
             self.period = '2d'
         else:
             
             self.period = '1d'
             self.start = datetime.today()
-    
-        self.end = self.start
         
     def createDataFrame(self):
         
         symbol = yf.Ticker(self.tickerSymbol)
         #print(str(time.strftime("%I:%M:%S"))[0:2])
         
-        if int(str(time.strftime("%I:%M:%S"))[0:2]) >= 4 and int(str(time.strftime("%I:%M:%S"))[0:2]) <= 9:
+        if (str(time.strftime("%I:%M:%S%p"))[8:] == "PM" and int(str(time.strftime("%I:%M:%S"))[0:2]) >= 4) or (str(time.strftime("%I:%M:%S%p"))[8:] == "AM" and int(str(time.strftime("%I:%M:%S"))[0:2]) <= 12):
             
             tickerData = symbol.history(period = self.period)
         else:
             
-            tickerData = symbol.history(peroid = self.period, start = self.start)
+            tickerData = symbol.history(start = self.start)
         
         #tickerData = symbol.history(start = self.start, end = self.end)
         return tickerData
     
-#symbol = sys.argv[1]
-symbol = input("Enter the ticker: ")
+symbol = sys.argv[1]
+#symbol = input("Enter the ticker: ")
 data = TickerDataFrame(symbol)
 dataFrame = data.createDataFrame()
 
