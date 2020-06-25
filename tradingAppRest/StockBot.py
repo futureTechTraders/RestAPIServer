@@ -47,9 +47,9 @@ class MovingAverages():
     def ExponentialMovingAverage(self, isPrinted):
         tickerData['EMA'] = tickerData['Close'].ewm(span = self.timeframe, adjust = False).mean()
         
-        if isPrinted:
+        #if isPrinted:
             
-            print(tickerData['EMA'])
+            #print(tickerData['EMA'])
         
         return tickerData['EMA']
         #ema.plot(grid = True)
@@ -58,7 +58,7 @@ class MovingAverages():
     def SimpleMovingAverage(self):
         #tickerData['Close'].plot()
         tickerData['SMA'] = tickerData['Close'].rolling(window = self.timeframe).mean()
-        print(tickerData['SMA'])
+        #print(tickerData['SMA'])
         return tickerData['SMA']
         #plt.show()
     #ExponentialMovingAverage(timeframe) #Test for EMA Method
@@ -113,16 +113,40 @@ class executeStockBot(macd):
 
 
         if((lastClosePrice > smaLastPrice) and ((lastMACDPrice > lastSignalPrice) or (lastMACDPrice > 0))):
-            print("MACD", df['MACD'])
-            print("SIGNAL", df['signal'])
+            #print("MACD", df['MACD'])
+            #print("SIGNAL", df['signal'])
+            print(df['Close'])
+            print("@")
+            print(df['Open'])
+            print("@")
+            print(df['High'])
+            print("@")
+            print(df['Low'])
+            print("@")
             print('Enter a long position at ' + str(lastClosePrice))
         elif ((lastClosePrice  < smaLastPrice) and ((lastMACDPrice < lastSignalPrice) or (lastMACDPrice < 0))):
-            print("MACD", df['MACD'])
-            print("SIGNAL", df['signal'])
+            #print("MACD", df['MACD'])
+            #print("SIGNAL", df['signal'])
+            print(df['Close'])
+            print("@")
+            print(df['Open'])
+            print("@")
+            print(df['High'])
+            print("@")
+            print(df['Low'])
+            print("@")
             print('Enter a short position at ' + str(lastClosePrice))
         else:
-            print("MACD", df['MACD'])
-            print("SIGNAL", df['signal'])
+            #print("MACD", df['MACD'])
+            #print("SIGNAL", df['signal'])
+            print(df['Close'])
+            print("@")
+            print(df['Open'])
+            print("@")
+            print(df['High'])
+            print("@")
+            print(df['Low'])
+            print("@")
             print('No position should be taken, as there is no MACD & SMA agreement/consensus')
 
             
