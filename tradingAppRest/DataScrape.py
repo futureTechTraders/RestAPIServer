@@ -39,6 +39,7 @@ symbol = sys.argv[1]
 data = TickerDataFrame(symbol)
 dataFrame = data.createDataFrame()
 
+print("@")
 print(dataFrame['Close'])
 print("@")
 print(dataFrame['Open'])

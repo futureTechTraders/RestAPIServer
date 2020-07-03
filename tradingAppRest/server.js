@@ -53,11 +53,22 @@ app.get('/name', function(req, res) {
         // Takes stdout data from script which executed 
         // with arguments and send this data to res object
         var output = '';
+        var num = 0;
         process.stdout.on('data', function(data) {
         
             console.log("Sending Info")
-            res.end(data.toString('utf8'));
+            num += 1;
+            
+            if(num == 2) {
+                
+                res.end(data.toString('utf8'));
+            }
+            //output = data.toString('utf8');
+            //res.end(data.toString('utf8'));
         });
+        
+        //console.log(output)
+        //res.end(output);
     
         console.log(output);
     }
