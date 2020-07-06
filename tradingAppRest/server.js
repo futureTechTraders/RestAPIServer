@@ -42,7 +42,8 @@ app.get('/name', function(req, res) {
         });
     
         console.log(output);
-    } else if(req.query.indicator == "watchlist") {
+    } 
+    else if(req.query.indicator == "watchlist") {
         
         console.log("entered watchlist");
         
@@ -71,5 +72,18 @@ app.get('/name', function(req, res) {
         //res.end(output);
     
         console.log(output);
+    } 
+    else if(rer.query.indicator == "risk_calculator") {
+        
+        console.lof("Entered risk calculator");
+        
+        var process = spawn('py', ['UserRiskAssessment.py', 
+                                   req.query.accountSize, req.query.accountRisk, req.query.targetPrice, req.query.entryPrice, req.query.stopLoss]);
+        
+        process.stdout.on('data', function(data) {
+            
+            console.log("Sending info");
+            res.end(data.toString('utf8'));
+        })
     }
 }); 
