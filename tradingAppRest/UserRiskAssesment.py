@@ -2,11 +2,17 @@ import numpy as np
 import sys
 
 
-accountSize = float(input('What is the size of your account?: '))
-accountRisk = input('What is your account risk, please enter as a %: ')
-targetPrice = float(input('What is your target price?: '))
-entryPrice = float(input('Entry Price?: '))
-stopLoss = float(input('What is your stop loss level(price)?: '))
+#accountSize = float(input('What is the size of your account?: '))
+#accountRisk = input('What is your account risk, please enter as a %: ')
+#targetPrice = float(input('What is your target price?: '))
+#entryPrice = float(input('Entry Price?: '))
+#stopLoss = float(input('What is your stop loss level(price)?: '))
+
+accountSize = sys.argv[2]
+accountRisk = sys.argv[3]
+targetPrice = sys.argv[4]
+entryPrice = sys.argv[5]
+stopLoss = sys.argv[6]
 
 class UserRiskAssesment:
     def positionLevels():
@@ -18,9 +24,12 @@ class UserRiskAssesment:
         positionValue = entryPrice * numShares
         maxProfit = np.round((profitPerShare * numShares),2)
 
-        print('Your maximum loss given your account size and risk, is: $' + str(maxLoss))
-        print('Given your stop loss and maximum loss potential, you should purchase at max ' + str(numShares) + ' shares')
-        print('Given your target price, your max profit is: $' + str(maxProfit))
-
+        #print('Your maximum loss given your account size and risk, is: $' + str(maxLoss))
+        #print('Given your stop loss and maximum loss potential, you should purchase at max ' + str(numShares) + ' shares')
+        #print('Given your target price, your max profit is: $' + str(maxProfit))
+        print(str(maxLoss))
+        print(str(numShares))
+        print(str(maxProfit))
+        
 
     positionLevels()
