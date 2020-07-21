@@ -73,11 +73,11 @@ app.get('/name', function(req, res) {
     
         console.log(output);
     } 
-    else if(rer.query.indicator == "risk_calculator") {
+    else if(req.query.indicator == "risk_calculator") {
         
-        console.lof("Entered risk calculator");
+        console.log("entered risk calculator");
         
-        var process = spawn('py', ['UserRiskAssessment.py', 
+        var process = spawn('py', ['UserRiskAssesment.py', 
                                    req.query.accountSize, req.query.accountRisk, req.query.targetPrice, req.query.entryPrice, req.query.stopLoss]);
         
         process.stdout.on('data', function(data) {

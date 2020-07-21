@@ -8,28 +8,30 @@ import sys
 #entryPrice = float(input('Entry Price?: '))
 #stopLoss = float(input('What is your stop loss level(price)?: '))
 
-accountSize = sys.argv[2]
-accountRisk = sys.argv[3]
-targetPrice = sys.argv[4]
-entryPrice = sys.argv[5]
-stopLoss = sys.argv[6]
+accountSize = str(sys.argv[1])
+accountRisk = str(sys.argv[2])
+targetPrice = str(sys.argv[3])
+entryPrice = str(sys.argv[4])
+stopLoss = str(sys.argv[5])
 
 class UserRiskAssesment:
+    
     def positionLevels():
-        profitPerShare = targetPrice - entryPrice
-        lossPerShare = entryPrice - stopLoss
+        
+        profitPerShare = float(targetPrice) - float(entryPrice)
+        lossPerShare = float(entryPrice) - float(stopLoss)
         ReturnRiskRatio = profitPerShare/lossPerShare #This number should be atleast 2 for a good trade
-        maxLoss = ((float(accountRisk.rstrip('%')))/100) * accountSize
+        maxLoss = ((float(accountRisk.rstrip('%')))/100) * float(accountSize)
         numShares = int(maxLoss/lossPerShare)
-        positionValue = entryPrice * numShares
+        positionValue = float(entryPrice) * numShares
         maxProfit = np.round((profitPerShare * numShares),2)
 
         #print('Your maximum loss given your account size and risk, is: $' + str(maxLoss))
         #print('Given your stop loss and maximum loss potential, you should purchase at max ' + str(numShares) + ' shares')
         #print('Given your target price, your max profit is: $' + str(maxProfit))
-        print(str(maxLoss))
-        print(str(numShares))
-        print(str(maxProfit))
+        print(str(maxLoss), " ", str(numShares), " ", str(maxProfit))
         
 
-    positionLevels()
+    #positionLevels()
+
+UserRiskAssesment.positionLevels()
