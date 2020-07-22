@@ -26,7 +26,7 @@ class UserRiskAssesment:
         positionValue = float(entryPrice) * numShares
         maxProfit = np.round((profitPerShare * numShares),2)
 
-        #print('Your maximum loss given your account size and risk, is: $' + str(maxLoss))
+        #print('Your maximum loss given your account size and risk, is: $' + str(maxLoss) + '. Given your stop loss and maximum loss potential, you should purchase at max ' + str(numShares) + ' shares. Given your target price, your max profit is: $' + str(maxProfit) + '.')
         #print('Given your stop loss and maximum loss potential, you should purchase at max ' + str(numShares) + ' shares')
         #print('Given your target price, your max profit is: $' + str(maxProfit))
         print(str(maxLoss), " ", str(numShares), " ", str(maxProfit))
