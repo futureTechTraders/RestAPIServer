@@ -14,7 +14,7 @@
   "author": "Levente Nas",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "localtunnel": "^2.0.0",
     "query": "^0.2.0",
     "query-string": "^6.12.1",
